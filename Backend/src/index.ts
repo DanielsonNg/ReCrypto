@@ -3,7 +3,6 @@ import router from "./routes";
 
 const app = express()
 app.use(express.json())
-
 const PORT = 5173
 
 app.use(function (req, res, next) {

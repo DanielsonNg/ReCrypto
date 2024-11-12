@@ -1,11 +1,9 @@
 import { Router } from "express"
-import {testFunction} from "../controllers/test"
+import {coinsList} from "../controllers/coint"
 
 const router = Router()
 
-
-router.post('/test', testFunction)
-
+router.post('/coins/list', coinsList)
 
 
 export default router
