@@ -12,6 +12,7 @@ export const coinsList: RequestHandler<unknown> = async (req, res, next) => {
     let { test, tesst, testt } = req.body
     try {
         dotenv.config()
+        let test = process.env.CG_URL + '/coins/markets'
         let fetch = await axios.get(test, {
             headers: {
                 'x-cg-api-key': process.env.CG_API_KEY,
