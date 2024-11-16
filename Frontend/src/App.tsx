@@ -8,14 +8,26 @@ const theme = createTheme({
     danger: '#e43e3e'
   },
   palette: {
+    primary: {
+      main: colors.purple[500]
+    },
     secondary: {
       main: colors.orange[500]
     },
-    neutral:{
+    neutral: {
       main: colors.grey[500],
       darker: colors.grey[700],
     },
 
+  },
+  typography: {
+    fontSize: 24,
+    h3:{
+      fontSize:'10rem'
+    },
+    customVariant:{
+      fontSize: 30
+    }
   }
 })
 

@@ -1,5 +1,7 @@
-import { PaletteColor, ThemeOptions } from "@mui/material/styles";
+import { PaletteColor, ThemeOptions, TypographyVariantsOptions } from "@mui/material/styles";
 import React from "react";
+import { Typography } from '@mui/material';
+import { TypographyOptions, TypographyStyleOptions } from "@mui/material/styles/createTypography";
 
 declare module '@mui/material/styles' {
 
@@ -30,4 +32,15 @@ declare module '@mui/material/styles' {
     interface PaletteColor {
         darker?: string
     }
+
+    interface TypographyVariants {
+        customVariant: TypographyVariants
+    }
+
+    interface TypographyVariantsOptions {
+        customVariant: {
+            fontSize?: number
+        }
+    }
 }
+
