@@ -5,42 +5,42 @@ import { TypographyOptions, TypographyStyleOptions } from "@mui/material/styles/
 
 declare module '@mui/material/styles' {
 
-    interface Theme {
-        status: {
-            danger: string
-        }
-    }
+    // interface Theme {
+    //     status: {
+    //         danger: string
+    //     }
+    // }
 
-    interface ThemeOptions {
-        status: {
-            danger: React.CSSProperties['color']
-        }
-    }
+    // interface ThemeOptions {
+    //     status: {
+    //         danger: React.CSSProperties['color']
+    //     }
+    // }
 
-    interface Palette {
-        neutral?: PaletteColor
-    }
+    // interface Palette {
+    //     neutral?: PaletteColor
+    // }
 
-    interface PaletteOptions {
-        neutral?: PaletteColorOptions
-    }
+    // interface PaletteOptions {
+    //     neutral?: PaletteColorOptions
+    // }
 
-    interface SimplePaletteColorOptions {
-        darker?: string
-    }
+    // interface SimplePaletteColorOptions {
+    //     darker?: string
+    // }
 
-    interface PaletteColor {
-        darker?: string
-    }
+    // interface PaletteColor {
+    //     darker?: string
+    // }
 
-    interface TypographyVariants {
-        customVariant: TypographyVariants
-    }
+    // interface TypographyVariants {
+    //     customVariant: TypographyVariants
+    // }
 
-    interface TypographyVariantsOptions {
-        customVariant: {
-            fontSize?: number
-        }
-    }
+    // interface TypographyVariantsOptions {
+    //     customVariant: {
+    //         fontSize?: number
+    //     }
+    // }
 }
 
