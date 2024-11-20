@@ -9,6 +9,9 @@ import LayersIcon from '@mui/icons-material/Layers';
 import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { useDemoRouter } from '@toolpad/core/internal';
+import { Route, Routes } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import TestPage from './pages/TestPage';
 
 const NAVIGATION: Navigation = [
   {
@@ -21,7 +24,7 @@ const NAVIGATION: Navigation = [
     icon: <DashboardIcon />,
   },
   {
-    segment: 'orders',
+    segment: 'test',
     title: 'Orders',
     icon: <ShoppingCartIcon />,
   },
@@ -72,50 +75,22 @@ const demoTheme = createTheme({
   },
 });
 
-function DemoPageContent({ pathname }: { pathname: string }) {
-  return (
-    <Box
-      sx={{
-        py: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-      }}
-    >
-      <Typography>Dashboard content for {pathname}</Typography>
-    </Box>
-  );
-}
-
-interface DemoProps {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
-}
-
-export default function DashboardLayoutBasic(props: DemoProps) {
-  const { window } = props;
+export default function DashboardLayoutBasic() {
 
   const router = useDemoRouter('/dashboard');
 
-  // Remove this const when copying and pasting into your project.
-  const demoWindow = window !== undefined ? window() : undefined;
-
   return (
-    // preview-start
     <AppProvider
       navigation={NAVIGATION}
-      router={router}
+      // router={router}
       theme={demoTheme}
-      window={demoWindow}
     >
       <DashboardLayout>
-        <DemoPageContent pathname={router.pathname} />
+        <Routes>
+          <Route path="/dashboard" element={<LandingPage />} />
+          <Route path="/test" element={<TestPage />} />
+        </Routes>
       </DashboardLayout>
     </AppProvider>
-    // preview-end
   );
 }
