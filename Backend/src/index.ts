@@ -4,10 +4,10 @@ import createHttpError, { isHttpError } from "http-errors";
 
 const app = express()
 app.use(express.json())
-const PORT = 5173
+const PORT = 3333
 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3333");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });

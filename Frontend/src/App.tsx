@@ -76,18 +76,14 @@ const demoTheme = createTheme({
 });
 
 export default function DashboardLayoutBasic() {
-
-  const router = useDemoRouter('/dashboard');
-
   return (
     <AppProvider
       navigation={NAVIGATION}
-      // router={router}
       theme={demoTheme}
     >
-      <DashboardLayout>
+      <DashboardLayout sx={{padding:'30px'}}>
         <Routes>
-          <Route path="/dashboard" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>
       </DashboardLayout>
