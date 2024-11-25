@@ -14,7 +14,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Grid2, Pagination, TableHead, styled } from '@mui/material';
+import { Grid2, Pagination, PaginationProps, TableHead, styled } from '@mui/material';
 import { Coin } from '../pages/LandingPage';
 import { red, green } from '../lib/index'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -99,34 +99,9 @@ export default function CoinTable({ coins }: CoinListsProps) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * coinPerPage - coins.length) : 0;
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
-    setPage(newPage);
+  const handleChange: PaginationProps['onChange'] = (event, value) => {
+    setPage(value - 1);
   };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  type labelDisplayRows = {
-    from: number,
-    to: number,
-    count: number
-  }
-
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(1); // Reset to the first page when rows per page change
-  // };
 
   return (
     <TableContainer component={Paper}>
@@ -183,25 +158,13 @@ export default function CoinTable({ coins }: CoinListsProps) {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={6}>
-              <TablePagination
-                colSpan={3}
-                labelRowsPerPage=''
-                // labelDisplayedRows={defaultLabelDisplayedRows}
-                count={coins.length}
-                rowsPerPage={coinPerPage}
-                page={page}
-                slotProps={{
-                  select: {
-                    inputProps: {
-                      'aria-label': 'rows per page',
-                    },
-                    native: true,
-                  },
+            <TableCell align='right' width={'100%'} colSpan={6}>
+              <Pagination
+                sx={{
+                  display: 'flex', justifyContent: 'center'
                 }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
+                count={coins.length / coinPerPage}
+                onChange={handleChange}
               />
             </TableCell>
           </TableRow>
