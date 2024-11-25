@@ -14,8 +14,11 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { TableHead } from '@mui/material';
+import { Grid2, Pagination, TableHead, styled } from '@mui/material';
 import { Coin } from '../pages/LandingPage';
+import { red, green } from '../lib/index'
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -90,7 +93,7 @@ type CoinListsProps = {
 // export default function CoinTable({}: CoinListsProps) {
 export default function CoinTable({ coins }: CoinListsProps) {
   const [page, setPage] = React.useState(0);
-  const [coinPerPage, setRowsPerPage] = React.useState(5);
+  const [coinPerPage, setRowsPerPage] = React.useState(25);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -110,17 +113,32 @@ export default function CoinTable({ coins }: CoinListsProps) {
     setPage(0);
   };
 
+  type labelDisplayRows = {
+    from: number,
+    to: number,
+    count: number
+  }
+
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
+
+  // const handleChangeRowsPerPage = (event) => {
+  //   setRowsPerPage(parseInt(event.target.value, 10));
+  //   setPage(1); // Reset to the first page when rows per page change
+  // };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
             <TableCell>#</TableCell>
-            <TableCell align="right">Coin</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">24h</TableCell>
-            <TableCell align="right">MarketCap</TableCell>
-            <TableCell align="right">Volume 24h</TableCell>
+            <TableCell>Coin</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>24h</TableCell>
+            <TableCell>MarketCap</TableCell>
+            <TableCell>Volume 24h</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -129,23 +147,31 @@ export default function CoinTable({ coins }: CoinListsProps) {
             : coins
           ).map((coin) => (
             <TableRow key={coin.id}>
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" style={{ width: 10 }}>
                 {coin.rank}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                <img src={coin.image} style={{width:'50px', height:'50px'}}></img>{coin.name} &nbsp;{coin.symbol}
+              <TableCell style={{ width: '30px' }} >
+                <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                  <img src={coin.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{coin.name} &nbsp; <b>{coin.symbol.toUpperCase()}</b>
+                </Grid2>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {coin.price} $
+              <TableCell style={{ width: 30 }} >
+                {coin.price.toFixed(2)}$
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {coin.price24.toFixed(1)} %
+              <TableCell style={{ width: 20, color: coin.price24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
+                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                  {coin.price24.toFixed(2)}%
+                  {coin.price24 < 0 ? <TrendingDownIcon /> : coin.price24 === 0 ? '-' : <TrendingUpIcon />}
+                </Grid2>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {coin.marketCap} $
+              <TableCell style={{ width: 50 }} >
+                {coin.marketCap}$
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {coin.marketCap24.toFixed(2)} %
+              <TableCell style={{ width: 20, color: coin.marketCap24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
+                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                  {coin.marketCap24.toFixed(2)}%
+                  {coin.marketCap24 < 0 ? <TrendingDownIcon /> : coin.marketCap24 === 0 ? '-' : <TrendingUpIcon />}
+                </Grid2>
               </TableCell>
             </TableRow>
           ))}
@@ -157,27 +183,30 @@ export default function CoinTable({ coins }: CoinListsProps) {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={coins.length}
-              rowsPerPage={coinPerPage}
-              page={page}
-              slotProps={{
-                select: {
-                  inputProps: {
-                    'aria-label': 'rows per page',
+            <TableCell colSpan={6}>
+              <TablePagination
+                colSpan={3}
+                labelRowsPerPage=''
+                // labelDisplayedRows={defaultLabelDisplayedRows}
+                count={coins.length}
+                rowsPerPage={coinPerPage}
+                page={page}
+                slotProps={{
+                  select: {
+                    inputProps: {
+                      'aria-label': 'rows per page',
+                    },
+                    native: true,
                   },
-                  native: true,
-                },
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
-    </TableContainer>
+    </TableContainer >
   );
 }
