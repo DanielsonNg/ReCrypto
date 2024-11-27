@@ -19,6 +19,7 @@ import { Coin } from '../pages/LandingPage';
 import { red, green } from '../lib/index'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import cg from '../../public/CG.png'
 
 interface TablePaginationActionsProps {
   count: number;
@@ -158,7 +159,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell align='right' width={'100%'} colSpan={6}>
+            <TableCell align='right' width={'100%'} colSpan={5}>
               <Pagination
                 sx={{
                   display: 'flex', justifyContent: 'center'
@@ -167,6 +168,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
                 onChange={handleChange}
               />
             </TableCell>
+            <TableCell sx={{display:'flex', alignItems:'center', justifyContent:'flex-end', width:'150px'}} colSpan={1}> Powered by CoinGecko  <img src={cg} style={{width:'30px'}} /></TableCell>
           </TableRow>
         </TableFooter>
       </Table>
