@@ -1,4 +1,4 @@
-import { RequestHandler } from "express"
+import { application, RequestHandler } from "express"
 import dotenv from 'dotenv';
 import axios from "axios";
 dotenv.config()
@@ -6,7 +6,7 @@ dotenv.config()
 export const coinsList: RequestHandler = async (req, res, next) => {
     try {
         let url = process.env.CG_URL + '/coins/markets?vs_currency=usd'
-        let fetch = await axios.get(url, {
+        let fetchCoins = await axios.get(url, {
             headers: {
                 'x-cg-api-key': process.env.CG_API_KEY,
                 'accept': 'application/json',
@@ -25,7 +25,7 @@ export const coinsList: RequestHandler = async (req, res, next) => {
             market_cap_change_percentage_24h: number
         }
 
-        const filteredData = fetch.data.map((coin: CoinListsProps) => ({
+        const filteredData = fetchCoins.data.map((coin: CoinListsProps) => ({
             id: coin.id,
             rank: coin.market_cap_rank,
             name: coin.name,
@@ -36,8 +36,44 @@ export const coinsList: RequestHandler = async (req, res, next) => {
             marketCap: coin.market_cap,
             marketCap24: coin.market_cap_change_percentage_24h
         }))
+        let trendingURL = process.env.CG_URL + '/search/trending'
+        let fetchTrending = await axios.get(trendingURL, {
+            headers: {
+                'x-cg-api-key': process.env.CG_API_KEY,
+                'Accept': 'application/json'
+            }
+        })
 
-        res.status(200).json(filteredData)
+        type TrendingCoin = {
+            item: {
+                id: string,
+                coin_id: number,
+                name: string,
+                symbol: string,
+                market_cap_rank: number,
+                thumb: string
+                small: string
+                large: string
+                slug: string
+                price_btc: Float32Array,
+                score: number
+            }
+        }
+
+        const trendingCoins = fetchTrending.data.coins.map((coin: TrendingCoin) => ({
+            id: coin.item.id,
+            coin_id: coin.item.coin_id,
+            name: coin.item.name,
+            symbol: coin.item.symbol,
+            rank: coin.item.market_cap_rank,
+            thumb: coin.item.thumb,
+            small: coin.item.small,
+            large: coin.item.large,
+            price: coin.item.price_btc,
+            score: coin.item.score
+        }))
+
+        res.status(200).json({ coins: filteredData, trendingCoins: trendingCoins })
     } catch (error) {
         next(error)
     }
