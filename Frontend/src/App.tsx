@@ -1,5 +1,3 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createTheme } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -8,10 +6,8 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import LayersIcon from '@mui/icons-material/Layers';
 import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { useDemoRouter } from '@toolpad/core/internal';
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
-import TestPage from './pages/TestPage';
 
 const NAVIGATION: Navigation = [
   {
@@ -84,7 +80,6 @@ export default function DashboardLayoutBasic() {
       <DashboardLayout sx={{padding:'30px'}}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/test" element={<TestPage />} />
         </Routes>
       </DashboardLayout>
     </AppProvider>

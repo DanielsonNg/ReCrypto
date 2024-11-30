@@ -1,4 +1,4 @@
-import { application, RequestHandler } from "express"
+import { RequestHandler } from "express"
 import dotenv from 'dotenv';
 import axios from "axios";
 dotenv.config()
@@ -78,3 +78,4 @@ export const coinsList: RequestHandler = async (req, res, next) => {
         next(error)
     }
 }
+
