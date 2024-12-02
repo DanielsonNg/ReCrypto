@@ -133,20 +133,20 @@ export default function CoinTable({ coins }: CoinListsProps) {
                   </Grid2>
                 </TableCell>
                 <TableCell style={{ width: 30 }} >
-                  {coin.price.toFixed(2)}$
+                  {coin.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
                 </TableCell>
                 <TableCell style={{ width: 20, color: coin.price24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
                   <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                    {coin.price24.toFixed(2)}%
+                    {coin.price24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
                     {coin.price24 < 0 ? <TrendingDownIcon /> : coin.price24 === 0 ? '-' : <TrendingUpIcon />}
                   </Grid2>
                 </TableCell>
                 <TableCell style={{ width: 50 }} >
-                  {coin.marketCap}$
+                  {coin.marketCap.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
                 </TableCell>
                 <TableCell style={{ width: 20, color: coin.marketCap24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
                   <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                    {coin.marketCap24.toFixed(2)}%
+                    {coin.marketCap24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
                     {coin.marketCap24 < 0 ? <TrendingDownIcon /> : coin.marketCap24 === 0 ? '-' : <TrendingUpIcon />}
                   </Grid2>
                 </TableCell>
