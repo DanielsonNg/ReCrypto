@@ -8,6 +8,7 @@ import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
+import CoinPage from './pages/CoinPage';
 
 const NAVIGATION: Navigation = [
   {
@@ -80,6 +81,7 @@ export default function DashboardLayoutBasic() {
       <DashboardLayout sx={{padding:'30px'}}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path='/coin/:id' element={<CoinPage />} />
         </Routes>
       </DashboardLayout>
     </AppProvider>

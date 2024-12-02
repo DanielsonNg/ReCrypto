@@ -1,17 +1,15 @@
 import { RequestHandler } from "express"
 import dotenv from 'dotenv';
 import axios from "axios";
+import { defaultHeader } from "../src/helper";
 dotenv.config()
+
+const base_url = process.env.CG_URL
 
 export const coinsList: RequestHandler = async (req, res, next) => {
     try {
-        let url = process.env.CG_URL + '/coins/markets?vs_currency=usd'
-        let fetchCoins = await axios.get(url, {
-            headers: {
-                'x-cg-api-key': process.env.CG_API_KEY,
-                'accept': 'application/json',
-            }
-        })
+        let endpoint: string = '/coins/markets?vs_currency=usd'
+        let fetchCoins = await axios.get(base_url + endpoint, defaultHeader)
 
         type CoinListsProps = {
             id: string,
@@ -36,13 +34,9 @@ export const coinsList: RequestHandler = async (req, res, next) => {
             marketCap: coin.market_cap,
             marketCap24: coin.market_cap_change_percentage_24h
         }))
-        let trendingURL = process.env.CG_URL + '/search/trending'
-        let fetchTrending = await axios.get(trendingURL, {
-            headers: {
-                'x-cg-api-key': process.env.CG_API_KEY,
-                'Accept': 'application/json'
-            }
-        })
+        
+        endpoint = '/search/trending'
+        let fetchTrending = await axios.get(base_url + endpoint, defaultHeader)
 
         type TrendingCoin = {
             item: {
@@ -74,6 +68,18 @@ export const coinsList: RequestHandler = async (req, res, next) => {
         }))
 
         res.status(200).json({ coins: filteredData, trendingCoins: trendingCoins })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getCoin: RequestHandler = async (req, res, next) => {
+    try {
+        const coinID: unknown = req.query.coinID
+        const endpoint: string = `/coins/${coinID}?market_data=false&community_data=false&developer_data=false&sparkline=false&tickers=false`
+        const coin = await axios.get(base_url + endpoint, defaultHeader)
+
+        res.status(200).json({ coinData: coin.data })
     } catch (error) {
         next(error)
     }

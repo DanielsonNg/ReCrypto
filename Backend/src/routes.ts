@@ -1,8 +1,9 @@
 import { Router } from "express"
-import { coinsList } from '../controllers/coint';
+import { coinsList, getCoin } from '../controllers/coin';
 const router = Router()
 
-router.post('/coins/lists', coinsList)
+router.get('/coins/lists', coinsList)
+router.get('/coin', getCoin)
 
 
 export default router

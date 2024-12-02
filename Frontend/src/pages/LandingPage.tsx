@@ -37,11 +37,10 @@ export default function LandingPage() {
     useEffect(() => {
         (async () => {
             setLoading(true)
-            await axios.post('http://localhost:3333/coins/lists')
+            await axios.get('http://localhost:3333/coins/lists')
                 .then((response) => {
                     setCoins(response.data.coins)
                     setTrendingCoins(response.data.trendingCoins)
-                    console.log(response.data.trendingCoins)
                     setLoading(false)
                 })
         })()
