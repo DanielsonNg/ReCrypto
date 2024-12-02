@@ -65,7 +65,8 @@ export default function LandingPage() {
                                 alignItems: 'center',
                                 width:'fit-content',
                                 minWidth:'150px',
-                                padding:'4px'
+                                padding:'4px',
+                                paddingRight:'10px'
                             }}>
                                 <TrendingCoinCard
                                     id={coin.id}

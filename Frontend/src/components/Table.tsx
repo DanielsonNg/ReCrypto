@@ -20,6 +20,7 @@ import { red, green } from '../lib/index'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import cg from '../../public/CG.png'
+import { Link } from 'react-router-dom';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -122,33 +123,33 @@ export default function CoinTable({ coins }: CoinListsProps) {
             ? coins.slice(page * coinPerPage, page * coinPerPage + coinPerPage)
             : coins
           ).map((coin) => (
-            <TableRow key={coin.id}>
-              <TableCell component="th" scope="row" style={{ width: 10 }}>
-                {coin.rank}
-              </TableCell>
-              <TableCell style={{ width: '30px' }} >
-                <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={coin.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{coin.name} &nbsp; <b>{coin.symbol.toUpperCase()}</b>
-                </Grid2>
-              </TableCell>
-              <TableCell style={{ width: 30 }} >
-                {coin.price.toFixed(2)}$
-              </TableCell>
-              <TableCell style={{ width: 20, color: coin.price24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
-                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                  {coin.price24.toFixed(2)}%
-                  {coin.price24 < 0 ? <TrendingDownIcon /> : coin.price24 === 0 ? '-' : <TrendingUpIcon />}
-                </Grid2>
-              </TableCell>
-              <TableCell style={{ width: 50 }} >
-                {coin.marketCap}$
-              </TableCell>
-              <TableCell style={{ width: 20, color: coin.marketCap24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
-                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                  {coin.marketCap24.toFixed(2)}%
-                  {coin.marketCap24 < 0 ? <TrendingDownIcon /> : coin.marketCap24 === 0 ? '-' : <TrendingUpIcon />}
-                </Grid2>
-              </TableCell>
+            <TableRow key={coin.id} component={Link} to={`/coin/${coin.id}`}>
+                <TableCell component="th" scope="row" style={{ width: 10 }}>
+                  {coin.rank}
+                </TableCell>
+                <TableCell style={{ width: '30px' }} >
+                  <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                    <img src={coin.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{coin.name} &nbsp; <b>{coin.symbol.toUpperCase()}</b>
+                  </Grid2>
+                </TableCell>
+                <TableCell style={{ width: 30 }} >
+                  {coin.price.toFixed(2)}$
+                </TableCell>
+                <TableCell style={{ width: 20, color: coin.price24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
+                  <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                    {coin.price24.toFixed(2)}%
+                    {coin.price24 < 0 ? <TrendingDownIcon /> : coin.price24 === 0 ? '-' : <TrendingUpIcon />}
+                  </Grid2>
+                </TableCell>
+                <TableCell style={{ width: 50 }} >
+                  {coin.marketCap}$
+                </TableCell>
+                <TableCell style={{ width: 20, color: coin.marketCap24 < 0 ? red : coin.marketCap24 === 0 ? '' : green }} >
+                  <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                    {coin.marketCap24.toFixed(2)}%
+                    {coin.marketCap24 < 0 ? <TrendingDownIcon /> : coin.marketCap24 === 0 ? '-' : <TrendingUpIcon />}
+                  </Grid2>
+                </TableCell>
             </TableRow>
           ))}
           {emptyRows > 0 && (
@@ -168,7 +169,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
                 onChange={handleChange}
               />
             </TableCell>
-            <TableCell sx={{display:'flex', alignItems:'center', justifyContent:'flex-end', width:'150px'}} colSpan={1}> Powered by CoinGecko  <img src={cg} style={{width:'30px'}} /></TableCell>
+            <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '150px' }} colSpan={1}> Powered by CoinGecko  <img src={cg} style={{ width: '30px' }} /></TableCell>
           </TableRow>
         </TableFooter>
       </Table>

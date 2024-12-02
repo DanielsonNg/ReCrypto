@@ -1,14 +1,13 @@
 import { createTheme } from '@mui/material/styles';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LayersIcon from '@mui/icons-material/Layers';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import MemoryIcon from '@mui/icons-material/Memory';
 import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import CoinPage from './pages/CoinPage';
+import CoinCategoryPage from './pages/CoinCategoryPage';
 
 const NAVIGATION: Navigation = [
   {
@@ -16,43 +15,19 @@ const NAVIGATION: Navigation = [
     title: 'Main items',
   },
   {
-    segment: 'dashboard',
-    title: 'Dashboard',
-    icon: <DashboardIcon />,
+    segment: '',
+    title: 'Cryptocurrencies',
+    icon: <CurrencyBitcoinIcon />,
   },
   {
-    segment: 'test',
-    title: 'Orders',
-    icon: <ShoppingCartIcon />,
+    segment: 'categories',
+    title: 'Coin Categories',
+    icon: <CurrencyExchangeIcon />,
   },
   {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'Analytics',
-  },
-  {
-    segment: 'reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: 'sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: 'traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
-      },
-    ],
-  },
-  {
-    segment: 'integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
+    segment: 'nfts',
+    title: 'NFT',
+    icon: <MemoryIcon />,
   },
 ];
 
@@ -78,10 +53,11 @@ export default function DashboardLayoutBasic() {
       navigation={NAVIGATION}
       theme={demoTheme}
     >
-      <DashboardLayout sx={{padding:'30px'}}>
+      <DashboardLayout sx={{ padding: '30px' }}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path='/coin/:id' element={<CoinPage />} />
+          <Route path='/categories' element={<CoinCategoryPage />} />
         </Routes>
       </DashboardLayout>
     </AppProvider>
