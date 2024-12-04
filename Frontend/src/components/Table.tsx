@@ -19,8 +19,8 @@ import { Coin } from '../pages/LandingPage';
 import { red, green } from '../lib/index'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import cg from '../../public/CG.png'
-import { Link } from 'react-router-dom';
+import cg from '../assets/CG.png'
+import { Link, useNavigate } from 'react-router-dom';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -105,6 +105,8 @@ export default function CoinTable({ coins }: CoinListsProps) {
     setPage(value - 1);
   };
 
+  const navigate = useNavigate()
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
@@ -123,7 +125,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
             ? coins.slice(page * coinPerPage, page * coinPerPage + coinPerPage)
             : coins
           ).map((coin) => (
-            <TableRow key={coin.id} component={Link} to={`/coin/${coin.id}`}>
+            <TableRow key={coin.id} onClick={()=> navigate(`/coins/${coin.id}`)}>
                 <TableCell component="th" scope="row" style={{ width: 10 }}>
                   {coin.rank}
                 </TableCell>
@@ -169,7 +171,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
                 onChange={handleChange}
               />
             </TableCell>
-            <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '150px' }} colSpan={1}> Powered by CoinGecko  <img src={cg} style={{ width: '30px' }} /></TableCell>
+            <TableCell onClick={()=> window.open('https://www.coingecko.com/en/api')} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '150px' }} colSpan={1}> Powered by CoinGecko  <img src={cg} style={{ width: '30px' }} /></TableCell>
           </TableRow>
         </TableFooter>
       </Table>

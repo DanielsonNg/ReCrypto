@@ -58,7 +58,9 @@ export default function LandingPage() {
                     <h2>Trending Coins</h2>
                     <Grid2 container flexDirection={'row'} gap={2}>
                         {trendingCoins.length > 0 ? trendingCoins.map((coin) => (
-                            <Grid2 size={2} sx={{
+                            <Grid2 size={2} 
+                            key={coin.id}
+                            sx={{
                                 borderBlock: 'solid 0.5px gray',
                                 borderRadius: '10px',
                                 display: 'flex',
