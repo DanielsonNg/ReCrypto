@@ -125,7 +125,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
             ? coins.slice(page * coinPerPage, page * coinPerPage + coinPerPage)
             : coins
           ).map((coin) => (
-            <TableRow key={coin.id} onClick={()=> navigate(`/coins/${coin.id}`)}>
+            <TableRow key={coin.id} onClick={()=> navigate(`/coin/${coin.id}`)}>
                 <TableCell component="th" scope="row" style={{ width: 10 }}>
                   {coin.rank}
                 </TableCell>
