@@ -83,27 +83,24 @@ export const getCoin: RequestHandler = async (req, res, next) => {
         let response
         let temp
 
-        // endpoint = `/coins/${coinID}?market_data=false&community_data=false&developer_data=false&sparkline=false&tickers=false`
-        // response = await axios.get(base_url + endpoint, defaultHeader)
-        // temp = response.data
-        // const general = {
-        //     name: temp.name,
-        //     symbol: temp.symbol,
-        //     image: temp.image?.large || null,
-        //     description: temp.description?.en || null,
-        //     market_cap_rank: temp.market_cap_rank || null,
-        // };
+        endpoint = `/coins/${coinID}?market_data=false&community_data=false&developer_data=false&sparkline=false&tickers=false`
+        response = await axios.get(base_url + endpoint, defaultHeader)
+        temp = response.data
+        const general = {
+            name: temp.name,
+            symbol: temp.symbol,
+            image: temp.image?.large || null,
+            description: temp.description?.en || null,
+            market_cap_rank: temp.market_cap_rank || null,
+        };
 
-        // endpoint = `/simple/price?ids=${coinID}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true'`
-        // response = await axios.get(base_url + endpoint, defaultHeader)
-        // let price = response.data['vita-inu']
 
         endpoint = `/coins/${coinID}/market_chart?vs_currency=usd&days=1`
         response = await axios.get(base_url + endpoint, defaultHeader)
         const chart = response.data
 
-        // res.status(200).json({ general: general, price: price, chart: chart })
-        res.status(200).json({chart:chart})
+        res.status(200).json({ general: general, chart: chart })
+        // res.status(200).json({chart:chart})
     } catch (error) {
         next(error)
     }
