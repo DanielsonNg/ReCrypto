@@ -1,92 +1,18 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
 import { Grid2, Pagination, PaginationProps, TableHead, styled } from '@mui/material';
 import { Coin } from '../pages/LandingPage';
 import { red, green } from '../lib/index'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import cg from '../assets/CG.png'
-import { Link, useNavigate } from 'react-router-dom';
-
-interface TablePaginationActionsProps {
-  count: number;
-  page: number;
-  rowsPerPage: number;
-  onPageChange: (
-    event: React.MouseEvent<HTMLButtonElement>,
-    newPage: number,
-  ) => void;
-}
-
-function TablePaginationActions(props: TablePaginationActionsProps) {
-  const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
-
-  const handleFirstPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    onPageChange(event, 0);
-  };
-
-  const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onPageChange(event, page - 1);
-  };
-
-  const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onPageChange(event, page + 1);
-  };
-
-  const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
-  return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-      </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-      </IconButton>
-    </Box>
-  );
-}
+import { useNavigate } from 'react-router-dom';
 
 type CoinListsProps = {
   coins: Coin[]
@@ -125,7 +51,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
             ? coins.slice(page * coinPerPage, page * coinPerPage + coinPerPage)
             : coins
           ).map((coin) => (
-            <TableRow key={coin.id} onClick={()=> navigate(`/coin/${coin.id}`)}>
+            <TableRow key={coin.id} sx={{cursor:'pointer'}} onClick={()=> navigate(`/coin/${coin.id}`)}>
                 <TableCell component="th" scope="row" style={{ width: 10 }}>
                   {coin.rank}
                 </TableCell>
@@ -171,7 +97,7 @@ export default function CoinTable({ coins }: CoinListsProps) {
                 onChange={handleChange}
               />
             </TableCell>
-            <TableCell onClick={()=> window.open('https://www.coingecko.com/en/api')} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '150px' }} colSpan={1}> Powered by CoinGecko  <img src={cg} style={{ width: '30px' }} /></TableCell>
+            <TableCell onClick={()=> window.open('https://www.coingecko.com/en/api')} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '150px', cursor:'pointer' }} colSpan={1}> Powered by CoinGecko  <img src={cg} loading='lazy' style={{ width: '30px' }} /></TableCell>
           </TableRow>
         </TableFooter>
       </Table>

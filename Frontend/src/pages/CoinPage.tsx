@@ -56,8 +56,8 @@ export default function CoinPage() {
                 <Grid2 container flexDirection={'column'} rowGap={10} sx={{ padding: '20px' }}>
                     <Grid2 sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Grid2 container gap={5} flexDirection={'row'}>
-                            <h2>Price ${chart ? chart.prices[0][1].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : 'Price Unavailable'}</h2>
-                            <h2>MarketCap ${chart ? chart.market_caps[0][1].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : 'Market Cap Unavailable'}</h2>
+                            <h2>Price ${chart ? chart.prices[chart.prices.length - 1][1].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : 'Price Unavailable'}</h2>
+                            <h2>MarketCap ${chart ? chart.market_caps[chart.prices.length - 1][1].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : 'Market Cap Unavailable'}</h2>
                         </Grid2>
                         <Grid2 container columnGap={4} direction={'row'} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Button sx={{ borderRadius: '5px', height: '40px'}}  onClick={() => handleChartButton('price')}>Price</Button>
