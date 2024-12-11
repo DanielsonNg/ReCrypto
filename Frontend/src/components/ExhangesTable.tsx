@@ -48,34 +48,34 @@ export default function ExchangesTable<T>({ exchanges }: exchangeListsProps<T>) 
                         ? exchanges.slice(page * exchangePerPage, page * exchangePerPage + exchangePerPage)
                         : exchanges
                     ).map((exchange) => (
-                        // <TableRow key={exchange.id} sx={{ cursor: 'pointer' }} onClick={() => navigate(`/exchange/${exchange.id}`)}>
-                        //     <TableCell component="th" scope="row" style={{ width: 10 }}>
-                        //         {exchange.rank}
-                        //     </TableCell>
-                        //     <TableCell style={{ width: '30px' }} >
-                        //         <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                        //             <img src={exchange.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{exchange.name} &nbsp; <b>{exchange.symbol.toUpperCase()}</b>
-                        //         </Grid2>
-                        //     </TableCell>
-                        //     <TableCell style={{ width: 30 }} >
-                        //         {exchange.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
-                        //     </TableCell>
-                        //     <TableCell style={{ width: 20, color: exchange.price24 < 0 ? red : exchange.marketCap24 === 0 ? '' : green }} >
-                        //         <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                        //             {exchange.price24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
-                        //             {exchange.price24 < 0 ? <TrendingDownIcon /> : exchange.price24 === 0 ? '-' : <TrendingUpIcon />}
-                        //         </Grid2>
-                        //     </TableCell>
-                        //     <TableCell style={{ width: 50 }} >
-                        //         {exchange.marketCap.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
-                        //     </TableCell>
-                        //     <TableCell style={{ width: 20, color: exchange.marketCap24 < 0 ? red : exchange.marketCap24 === 0 ? '' : green }} >
-                        //         <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                        //             {exchange.marketCap24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
-                        //             {exchange.marketCap24 < 0 ? <TrendingDownIcon /> : exchange.marketCap24 === 0 ? '-' : <TrendingUpIcon />}
-                        //         </Grid2>
-                        //     </TableCell>
-                        // </TableRow>
+                        <TableRow key={exchange.id} sx={{ cursor: 'pointer' }} onClick={() => navigate(`/exchange/${exchange.id}`)}>
+                            <TableCell component="th" scope="row" style={{ width: 10 }}>
+                                {exchange.rank}
+                            </TableCell>
+                            <TableCell style={{ width: '30px' }} >
+                                <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <img src={exchange.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{exchange.name} &nbsp; <b>{exchange.symbol.toUpperCase()}</b>
+                                </Grid2>
+                            </TableCell>
+                            <TableCell style={{ width: 30 }} >
+                                {exchange.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
+                            </TableCell>
+                            <TableCell style={{ width: 20, color: exchange.price24 < 0 ? red : exchange.marketCap24 === 0 ? '' : green }} >
+                                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    {exchange.price24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
+                                    {exchange.price24 < 0 ? <TrendingDownIcon /> : exchange.price24 === 0 ? '-' : <TrendingUpIcon />}
+                                </Grid2>
+                            </TableCell>
+                            <TableCell style={{ width: 50 }} >
+                                {exchange.marketCap.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
+                            </TableCell>
+                            <TableCell style={{ width: 20, color: exchange.marketCap24 < 0 ? red : exchange.marketCap24 === 0 ? '' : green }} >
+                                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    {exchange.marketCap24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
+                                    {exchange.marketCap24 < 0 ? <TrendingDownIcon /> : exchange.marketCap24 === 0 ? '-' : <TrendingUpIcon />}
+                                </Grid2>
+                            </TableCell>
+                        </TableRow>
                     ))}
                     {emptyRows > 0 && (
                         <TableRow style={{ height: 53 * emptyRows }}>
