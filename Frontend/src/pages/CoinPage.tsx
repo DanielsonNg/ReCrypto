@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 import { axisClasses, LineChart, lineElementClasses } from '@mui/x-charts';
+import { blue, red } from '../lib/index';
 
 type Coin = {
     name: string,
@@ -59,8 +60,8 @@ export default function CoinPage() {
                             <h2>MarketCap ${chart ? chart.market_caps[0][1].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : 'Market Cap Unavailable'}</h2>
                         </Grid2>
                         <Grid2 container columnGap={4} direction={'row'} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                            <Button sx={{ borderRadius: '5px', height: '40px' }} variant="contained" onClick={() => handleChartButton('price')}>Price</Button>
-                            <Button sx={{ borderRadius: '5px', height: '40px' }} variant="contained" onClick={() => handleChartButton('marketcap')}>MarketCap</Button>
+                            <Button sx={{ borderRadius: '5px', height: '40px'}}  onClick={() => handleChartButton('price')}>Price</Button>
+                            <Button sx={{ borderRadius: '5px', height: '40px'}}  onClick={() => handleChartButton('marketcap')}>MarketCap</Button>
                             {/* <Button variant="contained" color="success" onClick={() => handleChartButton('volume')}>Volume</Button> */}
                         </Grid2>
                     </Grid2>
@@ -116,23 +117,6 @@ export default function CoinPage() {
                             : ''}
                         {chart &&
                             <>
-                                {/* <SparkLineChart
-                                    height={200}
-                                    colors={['green']}
-                                    data=
-                                    {chart.total_volumes.map((data) => {
-                                        return parseFloat(data[1].toFixed(2).toString())
-                                    })}
-                                    xAxis={{
-                                        scaleType: 'time',
-                                        data:
-                                            chart.prices.map((data) => {
-                                                return new Date(data[0])
-                                            })
-                                    }}
-                                    showTooltip
-                                    showHighlight
-                                /> */}
                                 <LineChart
                                     colors={['green']}
                                     height={200}
@@ -168,7 +152,7 @@ export default function CoinPage() {
                 <Grid2 sx={{ padding: '50px' }}>
                     {coin && <Grid2>
                         <h2>About {coin.name}</h2>
-                        {coin ? <div dangerouslySetInnerHTML={{ __html: coin.description }}></div> : ''}
+                        {coin ? <div dangerouslySetInnerHTML={{ __html: coin.description }}></div> : 'Coin description not found'}
                     </Grid2>}
                 </Grid2>
             </Grid2>

@@ -95,7 +95,7 @@ export const getCoin: RequestHandler = async (req, res, next) => {
         };
 
 
-        endpoint = `/coins/${coinID}/market_chart?vs_currency=usd&days=1`
+        endpoint = `/coins/${coinID}/market_chart?vs_currency=usd&days=365`
         response = await axios.get(base_url + endpoint, defaultHeader)
         const chart = response.data
 
