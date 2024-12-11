@@ -3,24 +3,15 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import MemoryIcon from '@mui/icons-material/Memory';
 import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
-import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { Route, Routes } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
-import CoinPage from './pages/CoinPage';
-import CoinCategoryPage from './pages/CoinCategoryPage';
-
+import { Outlet } from 'react-router-dom';
 const NAVIGATION: Navigation = [
-  {
-    kind: 'header',
-    title: 'Main items',
-  },
   {
     segment: '',
     title: 'Cryptocurrencies',
     icon: <CurrencyBitcoinIcon />,
   },
   {
-    segment: 'categories',
+    segment: 'exchanges',
     title: 'Coin Categories',
     icon: <CurrencyExchangeIcon />,
   },
@@ -48,18 +39,12 @@ const demoTheme = createTheme({
 });
 
 export default function DashboardLayoutBasic() {
+  const BRANDING = {
+    title: 'Crypto Tracker',
+  };
   return (
-    <AppProvider
-      navigation={NAVIGATION}
-      theme={demoTheme}
-    >
-      <DashboardLayout sx={{ padding: '30px' }}>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path='/coin/:id' element={<CoinPage />} />
-          <Route path='/categories' element={<CoinCategoryPage />} />
-        </Routes>
-      </DashboardLayout>
+    <AppProvider navigation={NAVIGATION} branding={BRANDING} theme={demoTheme}>
+      <Outlet />
     </AppProvider>
   );
 }

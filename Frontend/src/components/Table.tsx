@@ -18,12 +18,10 @@ type CoinListsProps = {
   coins: Coin[]
 }
 
-// export default function CoinTable({}: CoinListsProps) {
 export default function CoinTable({ coins }: CoinListsProps) {
   const [page, setPage] = React.useState(0);
   const [coinPerPage, setRowsPerPage] = React.useState(25);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * coinPerPage - coins.length) : 0;
 
