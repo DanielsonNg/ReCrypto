@@ -8,7 +8,7 @@ import LandingPage from './pages/LandingPage.tsx'
 import CoinExchangesPage from './pages/CoinExchangesPage.tsx'
 import CoinPage from './pages/CoinPage.tsx'
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     Component: App, 
     children: [

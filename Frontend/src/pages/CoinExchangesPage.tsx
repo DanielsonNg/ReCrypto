@@ -8,7 +8,12 @@ export default function CoinExchangesPage() {
     const [exchanges, setExchanges] = useState([])
 
     useEffect(() => {
-        // axios.
+        (async () => {
+            await axios.get(`http://localhost:3333/exchanges`)
+            .then((response)=>{
+                console.log(response)
+            })
+        })()
     }, [])
 
     return (
@@ -23,7 +28,7 @@ export default function CoinExchangesPage() {
                 <Grid2 container>
                     <h2>Exchanges List</h2>
                     {/* <ExchangesTable exchanges={exchanges} /> */}
-                </Grid2> }
+                </Grid2>}
         </>
     )
 }
