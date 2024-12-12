@@ -7,6 +7,7 @@ import Layout from './layout/Dashboard.tsx'
 import LandingPage from './pages/LandingPage.tsx'
 import CoinExchangesPage from './pages/CoinExchangesPage.tsx'
 import CoinPage from './pages/CoinPage.tsx'
+import ExchangePage from './pages/ExchangePage.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,9 @@ export const router = createBrowserRouter([
           {
             path: '/coin/:id',
             Component: CoinPage,
+          },
+          {path:'/exchange/:id',
+            Component: ExchangePage
           }
         ],
       },

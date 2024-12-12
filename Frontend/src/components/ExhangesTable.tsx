@@ -7,26 +7,23 @@ import TableFooter from '@mui/material/TableFooter';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Grid2, Pagination, PaginationProps, TableHead, styled } from '@mui/material';
-import { red, green } from '../lib/index'
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import cg from '../assets/CG.png'
 import { useNavigate } from 'react-router-dom';
+import { Exchange } from '../pages/CoinExchangesPage';
 
-type exchangeListsProps<data> = {
-    exchanges: data[]
+type ExchangeProps = {
+    exchanges: Exchange[]
 }
 
-export default function ExchangesTable<T>({ exchanges }: exchangeListsProps<T>) {
+export default function ExchangesTable({ exchanges }: ExchangeProps) {
     const [page, setPage] = React.useState(0);
     const [exchangePerPage, setRowsPerPage] = React.useState(25);
-
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * exchangePerPage - exchanges.length) : 0;
 
     const handleChange: PaginationProps['onChange'] = (event, value) => {
         setPage(value - 1);
     };
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * exchangePerPage - exchanges.length) : 0;
 
     const navigate = useNavigate()
 
@@ -37,10 +34,10 @@ export default function ExchangesTable<T>({ exchanges }: exchangeListsProps<T>) 
                     <TableRow>
                         <TableCell>#</TableCell>
                         <TableCell>exchange</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>24h</TableCell>
-                        <TableCell>MarketCap</TableCell>
-                        <TableCell>Volume 24h</TableCell>
+                        <TableCell>Trust</TableCell>
+                        <TableCell>24 Volume</TableCell>
+                        <TableCell>24 Volume (Normalized)</TableCell>
+                        <TableCell>Year Established</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -54,25 +51,25 @@ export default function ExchangesTable<T>({ exchanges }: exchangeListsProps<T>) 
                             </TableCell>
                             <TableCell style={{ width: '30px' }} >
                                 <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src={exchange.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{exchange.name} &nbsp; <b>{exchange.symbol.toUpperCase()}</b>
+                                    <img src={exchange.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{exchange.name}
                                 </Grid2>
                             </TableCell>
                             <TableCell style={{ width: 30 }} >
-                                {exchange.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
+                                {exchange.trust} / 10
                             </TableCell>
-                            <TableCell style={{ width: 20, color: exchange.price24 < 0 ? red : exchange.marketCap24 === 0 ? '' : green }} >
-                                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                                    {exchange.price24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
-                                    {exchange.price24 < 0 ? <TrendingDownIcon /> : exchange.price24 === 0 ? '-' : <TrendingUpIcon />}
+                            <TableCell>
+                                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>$
+                                    {exchange.volume24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                                 </Grid2>
                             </TableCell>
-                            <TableCell style={{ width: 50 }} >
-                                {exchange.marketCap.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
-                            </TableCell>
-                            <TableCell style={{ width: 20, color: exchange.marketCap24 < 0 ? red : exchange.marketCap24 === 0 ? '' : green }} >
+                            <TableCell>
                                 <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                                    {exchange.marketCap24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}%
-                                    {exchange.marketCap24 < 0 ? <TrendingDownIcon /> : exchange.marketCap24 === 0 ? '-' : <TrendingUpIcon />}
+                                    {exchange.volume24normalized.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
+                                </Grid2>
+                            </TableCell>
+                            <TableCell>
+                                <Grid2>
+                                    {exchange.year}
                                 </Grid2>
                             </TableCell>
                         </TableRow>

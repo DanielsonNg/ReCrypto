@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 import { axisClasses, LineChart, lineElementClasses } from '@mui/x-charts';
-import { blue, red } from '../lib/index';
 
 type Coin = {
     name: string,

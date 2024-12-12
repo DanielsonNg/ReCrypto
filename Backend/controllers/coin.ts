@@ -4,7 +4,7 @@ import axios from "axios";
 import { defaultHeader } from "../src/helper";
 dotenv.config()
 
-const base_url = process.env.CG_URL
+export const base_url = process.env.CG_URL
 
 
 type TrendingCoin = {
