@@ -23,7 +23,6 @@ export default function ExchangePage() {
             const response = await axios.get(`http://localhost:3333/exchange?id=${id}`)
             setExchange(response.data)
             setMarkets(response.data.tickers)
-            console.log(response.data)
         })()
     }, [])
 

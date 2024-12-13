@@ -8,10 +8,12 @@ import LandingPage from './pages/LandingPage.tsx'
 import CoinExchangesPage from './pages/CoinExchangesPage.tsx'
 import CoinPage from './pages/CoinPage.tsx'
 import ExchangePage from './pages/ExchangePage.tsx'
+import NftsPage from './pages/NftsPage.tsx'
+import NftPage from './pages/NftPage.tsx'
 
 export const router = createBrowserRouter([
   {
-    Component: App, 
+    Component: App,
     children: [
       {
         path: '/',
@@ -29,8 +31,17 @@ export const router = createBrowserRouter([
             path: '/coin/:id',
             Component: CoinPage,
           },
-          {path:'/exchange/:id',
+          {
+            path: '/exchange/:id',
             Component: ExchangePage
+          },
+          {
+            path: '/nfts',
+            Component: NftsPage
+          },
+          {
+            path: '/nft/:id',
+            Component: NftPage
           }
         ],
       },
