@@ -32,8 +32,6 @@ export default function CoinPage() {
             const response = await axios.get(`http://localhost:3333/coin?coinID=${id}`)
             setCoin(response.data.general)
             setChart(response.data.chart)
-
-            console.log(response.data)
         })()
     }, [])
 
