@@ -9,21 +9,21 @@ import Paper from '@mui/material/Paper';
 import { Grid2, Pagination, PaginationProps, TableHead } from '@mui/material';
 import cg from '../assets/CG.png'
 import { useNavigate } from 'react-router-dom';
-import { Exchange } from '../pages/CoinExchangesPage';
+import { Market } from '../pages/ExchangePage';
 
-type ExchangeProps = {
-    exchanges: Exchange[]
+type marketProps = {
+    markets: Market[]
 }
 
-export default function ExchangesTable({ exchanges }: ExchangeProps) {
+export default function ExchangeMarketTable({ markets }: marketProps) {
     const [page, setPage] = React.useState(0);
-    const [exchangePerPage, setRowsPerPage] = React.useState(25);
+    const [marketPerPage, setRowsPerPage] = React.useState(25);
 
     const handleChange: PaginationProps['onChange'] = (event, value) => {
         setPage(value - 1);
     };
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * exchangePerPage - exchanges.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * marketPerPage - markets.length) : 0;
 
     const navigate = useNavigate()
 
@@ -33,43 +33,37 @@ export default function ExchangesTable({ exchanges }: ExchangeProps) {
                 <TableHead>
                     <TableRow>
                         <TableCell>#</TableCell>
-                        <TableCell>Exchange</TableCell>
-                        <TableCell>Trust</TableCell>
-                        <TableCell>24 Volume</TableCell>
-                        <TableCell>24 Volume (Normalized)</TableCell>
-                        <TableCell>Year Established</TableCell>
+                        <TableCell>Coin</TableCell>
+                        <TableCell>Pair</TableCell>
+                        <TableCell>Price</TableCell>
+                        <TableCell>Volume</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {(exchangePerPage > 0
-                        ? exchanges.slice(page * exchangePerPage, page * exchangePerPage + exchangePerPage)
-                        : exchanges
-                    ).map((exchange) => (
-                        <TableRow key={exchange.id} sx={{ cursor: 'pointer' }} onClick={() => navigate(`/exchange/${exchange.id}`)}>
+                    {(marketPerPage > 0
+                        ? markets.slice(page * marketPerPage, page * marketPerPage + marketPerPage)
+                        : markets
+                    ).map((market, index) => (
+                        <TableRow key={index} sx={{ cursor: 'pointer' }} onClick={() => navigate(`/coin/${market.coin_id}`)}>
                             <TableCell component="th" scope="row" style={{ width: 10 }}>
-                                {exchange.rank}
+                                {index+1}
                             </TableCell>
                             <TableCell style={{ width: '30px' }} >
                                 <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src={exchange.image} style={{ width: '30px', height: '30px' }} loading='lazy'></img>{exchange.name}
+                                    {market.base}
+                                </Grid2>
+                            </TableCell>
+                            <TableCell style={{ width: '30px' }} >
+                                <Grid2 gap={'10px'} sx={{ display: 'flex', alignItems: 'center' }}>
+                                    {market.target? market.target : ' ' }
                                 </Grid2>
                             </TableCell>
                             <TableCell style={{ width: 30 }} >
-                                {exchange.trust} / 10
+                                {market.last.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
                             </TableCell>
                             <TableCell>
                                 <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>$
-                                    {exchange.volume24.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
-                                </Grid2>
-                            </TableCell>
-                            <TableCell>
-                                <Grid2 columnGap={'5px'} sx={{ display: 'flex', alignItems: 'center' }}>
-                                    {exchange.volume24normalized.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}$
-                                </Grid2>
-                            </TableCell>
-                            <TableCell>
-                                <Grid2>
-                                    {exchange.year}
+                                    {market.volume.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                                 </Grid2>
                             </TableCell>
                         </TableRow>
@@ -87,11 +81,11 @@ export default function ExchangesTable({ exchanges }: ExchangeProps) {
                                 sx={{
                                     display: 'flex', justifyContent: 'center'
                                 }}
-                                count={exchanges.length / exchangePerPage}
+                                count={markets.length / marketPerPage}
                                 onChange={handleChange}
                             />
                         </TableCell>
-                        <TableCell onClick={() => window.open('https://www.coingecko.com/en/api')} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '150px', cursor: 'pointer' }} colSpan={1}> Powered by exchangeGecko  <img src={cg} loading='lazy' style={{ width: '30px' }} /></TableCell>
+                        <TableCell onClick={() => window.open('https://www.coingecko.com/en/api')} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '150px', cursor: 'pointer' }} colSpan={1}> Powered by marketGecko  <img src={cg} loading='lazy' style={{ width: '30px' }} /></TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>

@@ -13,7 +13,7 @@ const NAVIGATION: Navigation = [
   },
   {
     segment: 'exchanges',
-    title: 'Coin Categories',
+    title: 'Exchanges',
     icon: <CurrencyExchangeIcon />,
   },
   {
